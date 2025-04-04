@@ -46,7 +46,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="right w-[400px] h-[500px]  bg-yellow-400 lg:flex hidden overflow-hidden rounded-2xl">
+          <div className="right w-[400px] h-[600px]   lg:flex hidden overflow-hidden rounded-2xl">
             <img
               className="w-full"
               src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?q=80&w=1529&auto=format&fit=crop&ixlib=rb-4.0.3"
