@@ -24,7 +24,6 @@ const Navbar = () => {
             </span>
           </div>
 
-          {/* <ShoppingBag className="h-5 w-5 text-white cursor-pointer hover:text-blue-500" /> */}
           <button
             className="text-white hover:text-blue-500 md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
