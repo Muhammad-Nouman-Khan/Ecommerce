@@ -13,10 +13,10 @@ const Hero = () => {
               that elevate your digital lifestyle.
             </p>
             <div className="buttons flex gap-5 mt-20">
-              <button className="bg-sky-500 py-3 px-5 rounded-lg">
+              <button className="bg-sky-500 py-3 px-5 rounded-lg hover:bg-blue-800">
                 Shop Now {">"}{" "}
               </button>
-              <button className="border border-gray-700 py-3 px-5 rounded-lg">
+              <button className="border border-gray-700 py-3 px-5 rounded-lg hover:border-white">
                 Explore
               </button>
             </div>
