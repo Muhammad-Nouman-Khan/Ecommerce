@@ -7,7 +7,8 @@ const categorySchema = new Schema(
       required: true,
     },
     image: {
-      type: String, //optional
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
