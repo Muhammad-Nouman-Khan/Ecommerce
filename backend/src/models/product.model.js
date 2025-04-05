@@ -28,6 +28,7 @@ const productSchema = new Schema(
 
     description: {
       type: String,
+      default: "No description added by the seller.",
     },
     stock: {
       type: Number,

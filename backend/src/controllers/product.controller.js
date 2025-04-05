@@ -1,5 +1,6 @@
 import { Product } from "../models/product.model.js";
 import { Category } from "../models/category.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 const getProductsForHomepage = async (req, res) => {
   try {
     const categories = await Category.find().lean();
@@ -52,4 +53,61 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
-export { getProductsForHomepage, getProductsByCategory };
+const addProduct = async (req, res) => {
+  try {
+    const { name, categoryName, price, description, stock } = req.body;
+
+    if (!name || !categoryName || !price) {
+      return res.status(400).json({
+        message: "Name,Category Name, and Price are required!",
+      });
+    }
+
+    const category = await Category.findOne({ name: categoryName });
+    if (!category) {
+      return res.status(404).json({ message: "Category not found !" });
+    }
+
+    const files = req.files?.productImages || [];
+    if (files.length < 1) {
+      return res.status(400).json({
+        message: "Atleast 1 product image is required!",
+      });
+    }
+    if (files.length > 5) {
+      return res
+        .status(400)
+        .json({ message: "You can upload a maximum of 5 product images!" });
+    }
+
+    const imageUrls = [];
+    for (const file of files) {
+      const uploadResult = await uploadOnCloudinary(file.path);
+      if (!uploadResult) {
+        return res
+          .status(400)
+          .json({ message: "Failed to upload image to Cloudinary" });
+      }
+      imageUrls.push(uploadResult.url);
+    }
+    const newProduct = new Product({
+      name,
+      category: category._id,
+      price,
+      images: imageUrls,
+      description,
+      stock,
+    });
+    await newProduct.save();
+    res
+      .status(201)
+      .json({ product: newProduct, message: "Product added successfully" });
+  } catch (error) {
+    console.error("Error adding product : ", error.message);
+    res
+      .status(500)
+      .json({ message: "Failed to add product", error: error.message });
+  }
+};
+
+export { getProductsForHomepage, getProductsByCategory, addProduct };
