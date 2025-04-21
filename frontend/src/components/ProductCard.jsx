@@ -1,8 +1,8 @@
 import React from "react";
 import { Star, ShoppingBag } from "lucide-react";
 
-const ProductCard = ({ product }) => {
-  const { name, price, images, category, ratings } = product;
+const ProductCard = ({ product, categoryName }) => {
+  const { name, price, images, averageRating } = product;
 
   return (
     <div className="bg-[#1E1E1E] rounded-lg overflow-hidden relative cursor-pointer  transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-600">
@@ -14,14 +14,16 @@ const ProductCard = ({ product }) => {
         />
       </div>
       <div className="p-4">
-        <div className="text-sm text-gray-600 mb-1">{category}</div>
+        <div className="text-sm text-gray-600 mb-1">{categoryName}</div>
         <h3 className="font-semibold text-lg mb-2 line-clamp-1 text-white">
           {name}
         </h3>
         <div className="flex items-center gap-2 mb-3">
           <div className="flex items-center gap-1">
             <Star className="h-4 w-4 fill-orange-500 text-orange-500" />
-            <span className="text-sm font-medium text-white">{ratings}</span>
+            <span className="text-sm font-medium text-white">
+              {averageRating}
+            </span>
           </div>
         </div>
         <div className="flex justify-between items-center">

@@ -1,6 +1,7 @@
 import { Product } from "../models/product.model.js";
 import { Category } from "../models/category.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { cleanupTempFile } from "../utils/cleanUp.js";
 const getProductsForHomepage = async (req, res) => {
   try {
     const categories = await Category.find().lean();
@@ -62,13 +63,15 @@ const addProduct = async (req, res) => {
         message: "Name,Category Name, and Price are required!",
       });
     }
-
+    const files = req.files?.productImages || [];
     const category = await Category.findOne({ name: categoryName });
     if (!category) {
+      for (const file of files) {
+        cleanupTempFile(file?.path);
+      }
       return res.status(404).json({ message: "Category not found !" });
     }
 
-    const files = req.files?.productImages || [];
     if (files.length < 1) {
       return res.status(400).json({
         message: "Atleast 1 product image is required!",
