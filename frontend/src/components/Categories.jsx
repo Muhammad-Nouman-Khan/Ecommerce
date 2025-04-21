@@ -1,7 +1,25 @@
-import React from "react";
-import { categories } from "../constants/constants";
+import React, { useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard";
+import axios from "axios";
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/categories`
+        );
+
+        setCategories(res.data);
+      } catch (error) {
+        console.log("Error Fetching categories : ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
   return (
     <div className="w-full mt-20">
       <div className="container max-w-7xl mx-auto p-4">
@@ -10,14 +28,16 @@ const Categories = () => {
           Browse our wide range of product categories and find exactly what you
           need
         </p>
-        <button className="text-blue-600 hover:text-blue-500 mt-3">
-          See All Categories
-        </button>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5 ">
-          {categories.map((category) => (
-            <CategoryCard key={category.id} category={category} />
-          ))}
-        </div>
+
+        {loading ? (
+          <p className="text-white mt-4">Loading...</p>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5 ">
+            {categories.map((category) => (
+              <CategoryCard key={category._id} category={category} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
