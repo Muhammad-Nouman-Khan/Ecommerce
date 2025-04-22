@@ -115,4 +115,20 @@ const addProduct = async (req, res) => {
   }
 };
 
-export { getProductsForHomepage, getProductsByCategory, addProduct };
+const getAllProducts = async (_, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json(products);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to fetch all products", error: error.message });
+  }
+};
+
+export {
+  getProductsForHomepage,
+  getProductsByCategory,
+  addProduct,
+  getAllProducts,
+};

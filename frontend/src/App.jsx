@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Categories from "./pages/Categories";
 import CategoryProducts from "./pages/CategoryProducts";
+import Products from "./pages/Products";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
             path="/categories/:categoryId"
             element={<CategoryProducts />}
           />
+          <Route path="/products" element={<Products />} />
         </Routes>
       </BrowserRouter>
     </div>

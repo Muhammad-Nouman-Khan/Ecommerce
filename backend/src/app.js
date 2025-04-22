@@ -24,4 +24,5 @@ import adminRouter from "./routes/admin.routes.js";
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/admin", adminRouter);
+
 export { app };
