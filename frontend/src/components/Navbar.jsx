@@ -1,6 +1,7 @@
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,11 +9,19 @@ const Navbar = () => {
   return (
     <header className="w-full border-b border-b-gray-700 sticky top-0 z-50 bg-zinc-900">
       <div className="max-w-7xl mx-auto p-4 flex items-center justify-between">
-        <h1 className="title text-2xl font-bold text-white">nomify</h1>
+        <Link to="/" className="title text-2xl font-bold text-white">
+          nomify
+        </Link>
         <div className="hidden md:flex gap-5 text-white">
-          <h1 className="cursor-pointer hover:text-blue-500">Home</h1>
-          <h1 className="cursor-pointer hover:text-blue-500">Products</h1>
-          <h1 className="cursor-pointer hover:text-blue-500">Categories</h1>
+          <Link to="/" className="hover:text-blue-500">
+            Home
+          </Link>
+          <Link to="/products" className="hover:text-blue-500">
+            Products
+          </Link>
+          <Link to="/categories" className="hover:text-blue-500">
+            Categories
+          </Link>
         </div>
         <div className="flex gap-4 items-center justify-center">
           <Search className="h-5 w-5 hidden md:flex text-white cursor-pointer hover:text-blue-500" />
@@ -46,9 +55,15 @@ const Navbar = () => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden w-full bg-zinc-800 text-white p-6 flex flex-col gap-6 origin-top shadow-lg"
           >
-            <h1 className="cursor-pointer hover:text-blue-500">Home</h1>
-            <h1 className="cursor-pointer hover:text-blue-500">Products</h1>
-            <h1 className="cursor-pointer hover:text-blue-500">Categories</h1>
+            <Link to="/" className="hover:text-blue-500">
+              Home
+            </Link>
+            <Link to="/products" className="hover:text-blue-500">
+              Products
+            </Link>
+            <Link to="/categories" className="hover:text-blue-500">
+              Categories
+            </Link>
 
             <div className="relative flex items-center">
               <Search className="absolute left-3 text-gray-400 h-4 w-4" />

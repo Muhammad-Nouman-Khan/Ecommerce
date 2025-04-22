@@ -18,6 +18,7 @@ const ProductCard = ({ product, categoryName }) => {
         <h3 className="font-semibold text-lg mb-2 line-clamp-1 text-white">
           {name}
         </h3>
+        
         <div className="flex items-center gap-2 mb-3">
           <div className="flex items-center gap-1">
             <Star className="h-4 w-4 fill-orange-500 text-orange-500" />
