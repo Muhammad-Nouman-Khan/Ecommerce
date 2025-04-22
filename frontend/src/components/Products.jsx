@@ -3,7 +3,6 @@ import ProductCard from "./ProductCard";
 import axios from "axios";
 const Products = () => {
   const [HomePageProducts, setHomePageProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHomePageProducts = async () => {
@@ -15,8 +14,6 @@ const Products = () => {
         setHomePageProducts(res.data);
       } catch (error) {
         console.log("Error fetching products for homepage : ", error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchHomePageProducts();
