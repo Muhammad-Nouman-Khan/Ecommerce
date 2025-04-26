@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard";
 import axios from "axios";
+import Spinner from "./loading";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +31,7 @@ const Categories = () => {
         </p>
 
         {loading ? (
-          <p className="text-white mt-4">Loading...</p>
+          <Spinner />
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5 ">
             {categories.map((category) => (
