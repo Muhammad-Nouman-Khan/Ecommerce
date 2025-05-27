@@ -126,9 +126,24 @@ const getAllProducts = async (_, res) => {
   }
 };
 
+const getProductById = async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to fetch product", error: error.message });
+  }
+};
 export {
   getProductsForHomepage,
   getProductsByCategory,
   addProduct,
   getAllProducts,
+  getProductById,
 };
