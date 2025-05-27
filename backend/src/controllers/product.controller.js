@@ -140,10 +140,36 @@ const getProductById = async (req, res) => {
       .json({ message: "Failed to fetch product", error: error.message });
   }
 };
+
+const searchProducts = async (req, res) => {
+  const { query } = req.query;
+
+  if (!query) {
+    return res.status(400).json({ message: "Search query is required" });
+  }
+
+  try {
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
+      ],
+    }).populate("category");
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to search products",
+      error: error.message,
+    });
+  }
+};
+
 export {
   getProductsForHomepage,
   getProductsByCategory,
   addProduct,
   getAllProducts,
   getProductById,
+  searchProducts,
 };

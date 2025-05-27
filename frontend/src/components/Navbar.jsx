@@ -1,7 +1,8 @@
-import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Menu, ShoppingBag, User, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex gap-4 items-center justify-center">
-          <Search className="h-5 w-5 hidden md:flex text-white cursor-pointer hover:text-blue-500" />
+          <div className="hidden md:block w-64">
+            <SearchBar />
+          </div>
           <User className="h-6 w-6 text-white cursor-pointer hover:text-blue-500" />
           <div className="relative">
             <ShoppingBag className="h-5 w-5 text-white cursor-pointer hover:text-blue-500" />
@@ -65,13 +68,8 @@ const Navbar = () => {
               Categories
             </Link>
 
-            <div className="relative flex items-center">
-              <Search className="absolute left-3 text-gray-400 h-4 w-4" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg bg-zinc-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-              />
+            <div className="w-full">
+              <SearchBar />
             </div>
           </motion.div>
         )}

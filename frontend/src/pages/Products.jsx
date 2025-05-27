@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
@@ -7,6 +8,9 @@ import SidebarFilters from "../components/SidebarFilters";
 import Spinner from "../components/loading";
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search");
+
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
@@ -34,7 +38,13 @@ const Products = () => {
       setLoading(true);
       try {
         let res;
-        if (selectedCategory) {
+        if (searchQuery) {
+          res = await axios.get(
+            `${
+              import.meta.env.VITE_API_URL
+            }/products/search?query=${encodeURIComponent(searchQuery)}`
+          );
+        } else if (selectedCategory) {
           res = await axios.get(
             `${
               import.meta.env.VITE_API_URL
@@ -56,7 +66,7 @@ const Products = () => {
       }
     };
     fetchProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, searchQuery]);
 
   useEffect(() => {
     let filtered = [...products];
@@ -85,7 +95,7 @@ const Products = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto p-4">
         <h1 className="text-3xl font-bold text-white mb-10 mt-10">
-          All Products
+          {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
         </h1>
         <div className="flex flex-col md:flex-row gap-8">
           <SidebarFilters
@@ -112,7 +122,9 @@ const Products = () => {
                 </div>
                 {filteredProducts.length === 0 && (
                   <div className="text-white text-center py-10">
-                    No products found matching your filters.
+                    {searchQuery
+                      ? `No products found matching "${searchQuery}"`
+                      : "No products found matching your filters."}
                   </div>
                 )}
               </>
